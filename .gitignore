@@ -1,0 +1,17 @@
+# Node
+node_modules/
+server/node_modules/
+
+# React
+client/node_modules/
+client/dist/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# OS
+.DS_Store
