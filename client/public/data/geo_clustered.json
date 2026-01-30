@@ -1,0 +1,72 @@
+[
+  {
+    "country":"Australia",
+    "affected_users":508336.8808341609,
+    "financial_loss_million":52.3715193644,
+    "resolution_time_hr":37.7130089374,
+    "risk_level":"High Risk"
+  },
+  {
+    "country":"Brazil",
+    "affected_users":548121.6092396536,
+    "financial_loss_million":49.9699615014,
+    "resolution_time_hr":38.0721847931,
+    "risk_level":"High Risk"
+  },
+  {
+    "country":"China",
+    "affected_users":492345.4311111111,
+    "financial_loss_million":49.3074555556,
+    "resolution_time_hr":38.0266666667,
+    "risk_level":"Low Risk"
+  },
+  {
+    "country":"France",
+    "affected_users":514063.469123506,
+    "financial_loss_million":48.1746812749,
+    "resolution_time_hr":36.2699203187,
+    "risk_level":"Low Risk"
+  },
+  {
+    "country":"Germany",
+    "affected_users":507322.4590818363,
+    "financial_loss_million":55.0345209581,
+    "resolution_time_hr":36.0179640719,
+    "risk_level":"Medium Risk"
+  },
+  {
+    "country":"India",
+    "affected_users":483359.2682926829,
+    "financial_loss_million":48.0575219512,
+    "resolution_time_hr":36.7873170732,
+    "risk_level":"Low Risk"
+  },
+  {
+    "country":"Japan",
+    "affected_users":496522.4994850669,
+    "financial_loss_million":49.6015550978,
+    "resolution_time_hr":37.0504634398,
+    "risk_level":"Low Risk"
+  },
+  {
+    "country":"Russia",
+    "affected_users":508366.1786085151,
+    "financial_loss_million":50.4114641745,
+    "resolution_time_hr":34.7892004154,
+    "risk_level":"Medium Risk"
+  },
+  {
+    "country":"UK",
+    "affected_users":488362.0572483841,
+    "financial_loss_million":51.1844690674,
+    "resolution_time_hr":36.7525392428,
+    "risk_level":"Low Risk"
+  },
+  {
+    "country":"USA",
+    "affected_users":495842.8170974155,
+    "financial_loss_million":52.6216202783,
+    "resolution_time_hr":34.9642147117,
+    "risk_level":"Medium Risk"
+  }
+]

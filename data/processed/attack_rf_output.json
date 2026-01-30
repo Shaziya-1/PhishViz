@@ -1,0 +1,26 @@
+[
+  {
+    "attack_type": "Ransomware",
+    "count": 1812
+  },
+  {
+    "attack_type": "SQL Injection",
+    "count": 1763
+  },
+  {
+    "attack_type": "Phishing",
+    "count": 1704
+  },
+  {
+    "attack_type": "DDoS",
+    "count": 1651
+  },
+  {
+    "attack_type": "Malware",
+    "count": 1600
+  },
+  {
+    "attack_type": "Man-in-the-Middle",
+    "count": 1470
+  }
+]

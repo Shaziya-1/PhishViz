@@ -1,0 +1,154 @@
+.url-page {
+  padding: 50px;
+  color: #fff;
+}
+
+/* HEADER */
+.url-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.shield {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.url-header p {
+  color: #9aa4b2;
+}
+
+/* INPUT */
+.url-input-card {
+  display: flex;
+  gap: 12px;
+  background: linear-gradient(180deg, #0f1b2d, #0a1220);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.url-input-card input {
+  flex: 1;
+  background: #0b1625;
+  border: 1px solid #1e293b;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.url-input-card button {
+  background: #0ea5e9;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* RESULT */
+.result-card {
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.result-card.safe {
+  background: linear-gradient(135deg, #064e3b, #022c22);
+  border-left: 5px solid #22c55e;
+}
+
+.result-card.suspicious {
+  background: linear-gradient(135deg, #3f2e00, #2a1f00);
+  border-left: 5px solid #facc15;
+}
+
+.result-card.dangerous {
+  background: linear-gradient(135deg, #3f0d0d, #1f0505);
+  border-left: 5px solid #ef4444;
+}
+
+.status {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.score {
+  color: #cbd5e1;
+}
+
+/* RISK BAR */
+.risk-card {
+  background: linear-gradient(180deg, #0f1b2d, #0a1220);
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.risk-bar {
+  height: 10px;
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.risk-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
+}
+
+/* WHY FLAGGED */
+.flagged-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.flag-card {
+  padding: 18px;
+  border-radius: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.flag-card.safe {
+  background: #052e1b;
+  border-left: 4px solid #22c55e;
+}
+
+.flag-card.danger {
+  background: #2a0f0f;
+  border-left: 4px solid #ef4444;
+}
+
+/* SECURITY */
+.security-section {
+  margin-top: 40px;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.security-card {
+  padding: 22px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #0f1b2d, #0a1220);
+}
+
+.security-card h4 {
+  margin: 8px 0;
+}
+
+.security-card.safe {
+  border-left: 4px solid #22c55e;
+}
+
+.security-card.danger {
+  border-left: 4px solid #ef4444;
+}
