@@ -1,55 +1,22 @@
-# PhishViz – Phishing Threat Analysis using Data Visualization
+# PhishViz – Phishing Threat Analysis (AI / ML)
 
-## 📌 Project Overview
-PhishViz is a data visualization–driven cybersecurity project that analyzes and visualizes phishing threats using interactive dashboards.  
-Machine learning is used as a supporting layer to enhance visual insights.
+PhishViz is an AI-enabled cybersecurity project that analyzes and visualizes phishing threats using interactive dashboards.  
+Machine Learning is used to classify risky URLs, detect attack patterns, and support visual insights.
 
----
-
-## 🧠 Core Concepts
-- Data Visualization
-- Cyber Security
-- Machine Learning (Supportive)
-
----
-
-## 📊 Key Features
-- Interactive phishing dashboard
-- Geographic threat visualization
+## 🔹 Key Features
+- Phishing threat dashboard
 - Attack trend analysis
-- URL safety checker with visual risk indicators
-- Country risk clustering using K-Means
-- Attack type prediction using Random Forest
+- Geographic threat visualization
+- URL safety checker
+- ML-based risk prediction & clustering
 
----
-
-## 🗂 Dataset
-**Master Dataset:** `phishviz_master_dataset.json`  
-Records: 10,000  
-Created by merging 4 cybersecurity datasets.
-
----
-
-## 🤖 Machine Learning Used
-| Algorithm | Purpose |
-|--------|--------|
-| Logistic Regression | URL risk classification |
-| K-Means Clustering | Country risk grouping |
-| Random Forest | Attack type prediction |
-
----
+## 🧠 AI / ML Used
+- Logistic Regression – URL risk classification  
+- K-Means – Country risk clustering  
+- Random Forest – Attack type prediction  
 
 ## 🛠 Tech Stack
-- Frontend: React.js
-- Backend: Python
-- ML Libraries: scikit-learn, pandas
-- Visualization: Charts, maps, dashboards
-
----
-
-## 📁 Project Structure
-
----
+React.js • Python • scikit-learn • pandas • Data Visualization
 
 ## 🚀 How to Run
 ```bash
@@ -57,4 +24,14 @@ cd client
 npm install
 npm run dev
 
-//Developed by Sajiya 
+//Developed by Sajiya Shaikh
+
+## 📸 Screenshots
+<div align="center">
+  <img src="images/dashboard.png" width="800"/>
+  <img src="images/url-heatmap.png" width="800"/>
+  <img src="images/attack-analysis.png" width="800"/>
+  <img src="images/geo-map.png" width="800"/>
+  <img src="images/url-checker-risk.png" width="800"/>
+  <img src="images/url-checker-safe.png" width="800"/>
+</div>
