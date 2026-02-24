@@ -18,13 +18,15 @@ Machine Learning is used to classify risky URLs, detect attack patterns, and sup
 ## 🛠 Tech Stack
 React.js • Python • scikit-learn • pandas • Data Visualization
 
+//Developed by Sajiya Shaikh
+
 ## 🚀 How to Run
 ```bash
 cd client
 npm install
 npm run dev
 
-//Developed by Sajiya Shaikh
+```bash
 
 ## 📸 Screenshots
 <div align="center">
