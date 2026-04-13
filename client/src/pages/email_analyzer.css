@@ -1,0 +1,133 @@
+.email-page {
+    padding: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #f1f5f9;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.analyzer-container {
+    background: #0f172a;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #1e293b;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.analyzer-container textarea {
+    width: 100%;
+    background: #020617;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.analyzer-container button {
+    background: #22d3ee;
+    color: #0f172a;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.analyzer-container button:hover {
+    background: #06b6d4;
+}
+
+.result-card {
+    padding: 30px;
+    border-radius: 20px;
+    background: #0f172a;
+    border-left: 8px solid #334155;
+}
+
+.result-card.critical { border-left-color: #ef4444; }
+.result-card.high { border-left-color: #f97316; }
+.result-card.medium { border-left-color: #eab308; }
+.result-card.low { border-left-color: #22c55e; }
+
+.risk-meter {
+    width: 100%;
+    height: 12px;
+    background: #1e293b;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
+    transition: width 1s ease;
+}
+
+.kw-tag {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    border: 1px solid #ef4444;
+}
+
+.compare-btn-email {
+    margin-top: 15px;
+    background: #6366f1 !important;
+    color: #fff !important;
+    border: none;
+    padding: 12px !important;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.compare-btn-email:hover {
+    background: #4f46e5 !important;
+}
+
+.comparison-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.comparison-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #94a3b8;
+}
+
+.best-performer {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    text-align: center;
+}
+
+.best-performer strong {
+    color: #818cf8;
+}

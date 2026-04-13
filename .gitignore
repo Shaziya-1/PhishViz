@@ -1,17 +1,26 @@
 # Node
 node_modules/
 server/node_modules/
-
-# React
 client/node_modules/
 client/dist/
 
 # Python
 __pycache__/
 *.pyc
+venv/
+backend/venv/
+
+# Raw Data (Zipped for GitHub safety)
+data/raw/*.csv
+
+# Temporary files
+tmp/
+backend/tmp/
 
 # Environment
 .env
 
 # OS
 .DS_Store
+
+

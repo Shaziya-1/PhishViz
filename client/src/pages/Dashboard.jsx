@@ -13,67 +13,29 @@ import SecurityRecommendations from "../components/SecurityRecommendations";
 import usePhishData from "../hooks/usePhishData";
 
 const Dashboard = () => {
-  const { data, loading, error } = usePhishData();
-
-  /* =========================
-     GLOBAL FILTER STATE
-  ========================= */
+  const { data: stats, loading, error } = usePhishData();
   const [selectedType, setSelectedType] = useState("ALL");
 
   if (loading) return <p style={{ padding: "2rem" }}>Loading Dashboard...</p>;
   if (error) return <p style={{ padding: "2rem" }}>{error}</p>;
 
-  /* =========================
-     FILTERED DATA
-  ========================= */
-  const filteredData =
-    selectedType === "ALL"
-      ? data
-      : data.filter(d => d.attack_type === selectedType);
+  const totalThreats = stats?.totalThreats || 0;
+  const highRiskURLs = stats?.highRiskURLs || 0;
+  const blockedAttempts = stats?.blockedAttempts || 0;
+  const activeAlerts = stats?.activeAlerts || 0;
 
   /* =========================
-     REAL STAT CALCULATIONS
+     CHARTS DATA (FROM BACKEND)
   ========================= */
-
-  const totalThreats = filteredData.length;
-
-  const highRiskURLs = filteredData.filter(
-    d => d.url_type === "phishing" || d.url_type === "malicious"
-  ).length;
-
-  // 🔧 FIXED LOGIC (defense data incomplete in Kaggle)
-  const blockedAttempts = filteredData.filter(
-    d => d.url_type === "phishing" || d.url_type === "malicious"
-  ).length;
-
-  const activeAlerts = filteredData.filter(
-    d =>
-      (d.url_type === "phishing" || d.url_type === "malicious") &&
-      (!d.resolution_time || d.resolution_time > 48)
-  ).length;
-
-  /* =========================
-     URL HEATMAP DATA
-  ========================= */
-  const heatmapData = filteredData
-    .filter(d => d.url && d.url_type !== "benign")
-    .slice(0, 10)
-    .map(d => ({
-      url: d.url,
-      attempts: d.affected_users || Math.floor(Math.random() * 1000),
-      risk:
-        d.url_type === "phishing"
-          ? "critical"
-          : d.url_type === "malicious"
-          ? "high"
-          : "medium",
-      label:
-        d.url_type === "phishing"
-          ? "Critical 9/10"
-          : d.url_type === "malicious"
-          ? "High 7/10"
-          : "Medium 5/10",
-    }));
+  const timelineData = stats?.timelineData || [];
+  const attackDistribution = stats?.attackDistribution || [];
+  
+  // URL Heatmap Logic (Static sample or from stats if added later)
+  const heatmapData = [
+    { url: "phish-login-verify.com", attempts: 1420, risk: "critical", label: "Critical 9.5/10" },
+    { url: "secure-bank-update.net", attempts: 980, risk: "high", label: "High 8.2/10" },
+    { url: "account-support-portal.org", attempts: 450, risk: "medium", label: "Medium 5.4/10" },
+  ];
 
   return (
     <>
@@ -122,13 +84,13 @@ const Dashboard = () => {
         <div className="grid-2">
           <div className="card">
             <h3>Phishing Activity Timeline</h3>
-            <TimelineChart data={filteredData} />
+            <TimelineChart data={timelineData} />
           </div>
 
           <div className="card">
             <h3>Attack Type Distribution</h3>
             <AttackPie
-              data={data}
+              data={attackDistribution}
               onSelectType={setSelectedType}
             />
 
@@ -180,8 +142,8 @@ const Dashboard = () => {
             BOTTOM SECTION
         ========================= */}
         <div className="grid-2">
-          <BlockedThreats data={filteredData} />
-          <GeoSnapshot data={filteredData} />
+          <BlockedThreats data={stats?.recentThreats || []} />
+          <GeoSnapshot data={stats?.geoDistribution || {}} />
         </div>
 
         <SecurityRecommendations />

@@ -1,0 +1,47 @@
+.qr-page {
+    padding: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #f1f5f9;
+}
+
+.scanner-container {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px dashed #334155;
+    margin-bottom: 30px;
+}
+
+.qr-preview {
+    max-width: 300px;
+    border-radius: 10px;
+    margin: 20px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.scanner-container button {
+    background: #22d3ee;
+    color: #0f172a;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.qr-actions {
+    margin-top: 20px;
+}
+
+.visit-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}

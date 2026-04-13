@@ -5,7 +5,8 @@ import GeoThreatMap from "../components/GeoThreatMap";
 import usePhishData from "../hooks/usePhishData";
 
 const GeoMap = () => {
-  const { data, loading, error } = usePhishData();
+  const { data: stats, loading, error } = usePhishData(true);
+  const data = stats?.raw_data || [];
 
   if (loading) return <p style={{ padding: 24 }}>Loading Geo Map...</p>;
   if (error) return <p style={{ padding: 24 }}>{error}</p>;

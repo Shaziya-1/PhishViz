@@ -4,23 +4,25 @@ const getRiskLevel = (count) => {
   return "low";
 };
 
-const GeoSnapshot = ({ data }) => {
+const GeoSnapshot = ({ data = {} }) => {
   /* =========================
-     AGGREGATE BY COUNTRY
+     SMART DATA HANDLING
   ========================= */
-  const countryCounts = data.reduce((acc, item) => {
+  const isPreAggregated = !Array.isArray(data) && Object.keys(data).length > 0;
+
+  const countryCounts = isPreAggregated ? data : (Array.isArray(data) ? data.reduce((acc, item) => {
     const country = item.country || "Unknown";
     acc[country] = (acc[country] || 0) + 1;
     return acc;
-  }, {});
+  }, {}) : {});
 
-  const total = data.length;
+  const total = isPreAggregated ? Object.values(data).reduce((a, b) => a + b, 0) : (Array.isArray(data) ? data.length : 0);
 
   const geoData = Object.entries(countryCounts)
     .map(([country, count]) => ({
       country,
       count,
-      percent: `${((count / total) * 100).toFixed(1)}%`,
+      percent: total > 0 ? `${((count / total) * 100).toFixed(1)}%` : "0%",
       risk: getRiskLevel(count),
     }))
     .sort((a, b) => b.count - a.count)

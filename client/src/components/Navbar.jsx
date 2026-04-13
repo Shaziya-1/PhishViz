@@ -11,9 +11,12 @@ const Navbar = () => {
 
       <div className="nav-center">
         <NavLink to="/" end>Dashboard</NavLink>
-        <NavLink to="/attack-analysis">Attack Analysis</NavLink>
-        <NavLink to="/geo">Geo Map</NavLink>
         <NavLink to="/url-check">URL Checker</NavLink>
+        <NavLink to="/email-analyzer">Email Analysis</NavLink>
+        <NavLink to="/qr-scanner">QR Scanner</NavLink>
+        <NavLink to="/attack-analysis">Attacks</NavLink>
+        <NavLink to="/geo">Geo Map</NavLink>
+        <NavLink to="/quiz">Quiz 🎮</NavLink>
       </div>
 
       <button

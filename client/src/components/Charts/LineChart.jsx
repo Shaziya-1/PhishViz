@@ -9,31 +9,26 @@ import {
   Legend,
 } from "recharts";
 
-export default function TimelineChart({ data }) {
+export default function TimelineChart({ data = [] }) {
   /* =========================
-     GROUP DATA BY YEAR
+     SMART DATA HANDLING
   ========================= */
-  const timelineData = Object.values(
-    data.reduce((acc, item) => {
-      const year = item.year || "Unknown";
+  // If data already looks like {year, threats, blocked}, use it directly
+  const isPreAggregated = data.length > 0 && data[0].threats !== undefined;
 
-      if (!acc[year]) {
-        acc[year] = {
-          year,
-          threats: 0,
-          blocked: 0,
-        };
-      }
-
-      acc[year].threats += 1;
-
-      if (item.defense && item.defense !== "None") {
-        acc[year].blocked += 1;
-      }
-
-      return acc;
-    }, {})
-  ).sort((a, b) => a.year - b.year);
+  const timelineData = isPreAggregated
+    ? data
+    : Object.values(
+        data.reduce((acc, item) => {
+          const year = item.year || "Unknown";
+          if (!acc[year]) acc[year] = { year, threats: 0, blocked: 0 };
+          acc[year].threats += 1;
+          if (item.defense_mechanism && item.defense_mechanism !== "None") {
+            acc[year].blocked += 1;
+          }
+          return acc;
+        }, {})
+      ).sort((a, b) => a.year - b.year);
 
   return (
     <ResponsiveContainer width="100%" height={280}>

@@ -1,17 +1,26 @@
 import pandas as pd
 import random
+import zipfile
+import io
 
-random.seed(42)
 
-print("📂 Loading datasets...")
+print("📂 Loading datasets from ZIP...")
+
+def read_csv_from_zip(zip_path, file_name):
+    with zipfile.ZipFile(zip_path, 'r') as z:
+        with z.open(file_name) as f:
+            return pd.read_csv(io.BytesIO(f.read()))
+
+ZIP_PATH = "../raw/data_raw.zip"
 
 # =====================
 # LOAD DATASETS
 # =====================
-geo_df = pd.read_csv("../raw/global_cyber_attacks_raw.csv")
-url_df = pd.read_csv("../raw/malicious_urls_raw.csv")
-phish_df = pd.read_csv("../raw/phishing_urls_raw.csv")
-site_df = pd.read_csv("../raw/phishing_site_urls.csv")
+geo_df = read_csv_from_zip(ZIP_PATH, "global_cyber_attacks_raw.csv")
+url_df = read_csv_from_zip(ZIP_PATH, "malicious_urls_raw.csv")
+phish_df = read_csv_from_zip(ZIP_PATH, "phishing_urls_raw.csv")
+site_df = read_csv_from_zip(ZIP_PATH, "phishing_site_urls.csv")
+
 
 # =====================
 # CLEAN DATA

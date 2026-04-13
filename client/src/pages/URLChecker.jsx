@@ -1,59 +1,56 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { checkURL, downloadReport } from "../services/api";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import "../urlchecker.css";
 
 const URLChecker = () => {
   const [url, setUrl] = useState("");
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
 
-  const analyzeURL = () => {
-    let score = 0;
-    let reasons = [];
-
-    if (!url.startsWith("https://")) {
-      score += 20;
-      reasons.push("Website does not use HTTPS (secure connection missing)");
+  const analyzeURL = async () => {
+    if (!url) return;
+    setLoading(true);
+    setResult(null);
+    setShowComparison(false);
+    try {
+      const { data } = await checkURL(url);
+      setResult(data);
+    } catch (err) {
+      console.error(err);
+      alert("Error analyzing URL. Make sure the backend is running.");
+    } finally {
+      setLoading(false);
     }
-
-    if (url.length > 75) {
-      score += 15;
-      reasons.push("URL length is unusually long");
-    }
-
-    if (/[<>{}%$]/.test(url)) {
-      score += 15;
-      reasons.push("Suspicious special characters detected");
-    }
-
-    if (/https?:\/\/\d+\.\d+\.\d+\.\d+/.test(url)) {
-      score += 25;
-      reasons.push("IP-based URL instead of domain name");
-    }
-
-    if ((url.match(/-/g) || []).length > 4) {
-      score += 10;
-      reasons.push("Too many hyphens in domain name");
-    }
-
-    if (/login|verify|secure|account|update|payment|free|bonus/i.test(url)) {
-      score += 15;
-      reasons.push("Phishing-related keywords found in URL");
-    }
-
-    score = Math.min(score, 100);
-
-    let status = "Safe";
-    if (score >= 70) status = "Dangerous";
-    else if (score >= 35) status = "Suspicious";
-
-    setResult({
-      score,
-      status,
-      reasons,
-      masked: url.replace(/https?:\/\/([^/]+)/, "https://***"),
-    });
   };
+
+  const handleDownloadReport = async () => {
+    try {
+      const res = await downloadReport({
+        url: result.url,
+        risk_score: result.final_score,
+        risk_level: result.risk_level,
+        details: result.details
+      });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'CyberPhish_Report.pdf');
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const chartData = [
+    { name: 'Logistic Regression', score: result?.model_comparison['Logistic Regression'] },
+    { name: 'Random Forest', score: result?.model_comparison['Random Forest'] },
+    { name: 'ANN (Neural Network)', score: result?.model_comparison['ANN (Neural Network)'] }
+  ];
 
   return (
     <>
@@ -63,8 +60,8 @@ const URLChecker = () => {
         {/* HEADER */}
         <div className="url-header">
           <div className="shield">🛡️</div>
-          <h1>URL Safety Checker</h1>
-          <p>Analyze a link and understand how risky it may be</p>
+          <h1>Advanced URL Intelligence</h1>
+          <p>AI-Powered Real-Time Phishing Detection & Explainability</p>
         </div>
 
         {/* INPUT */}
@@ -72,86 +69,117 @@ const URLChecker = () => {
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Enter a URL (https://example.com)"
+            placeholder="Enter a URL to analyze (e.g., https://paypal-secure-verify.com)"
           />
-          <button onClick={analyzeURL}>Check URL</button>
+          <button onClick={analyzeURL} disabled={loading}>
+            {loading ? "Analyzing..." : "Analyze Now"}
+          </button>
         </div>
 
         {/* RESULT */}
         {result && (
           <>
-            {/* STATUS */}
-            <div className={`result-card ${result.status.toLowerCase()}`}>
-              <h3>Overall Result</h3>
-              <p className="status">{result.status}</p>
-              <p className="score">Risk Score: {result.score}/100</p>
-            </div>
-
-            {/* RISK BAR */}
-            <div className="risk-card">
-              <h3>Risk Level</h3>
-              <div className="risk-bar">
-                <div
-                  className="risk-fill"
-                  style={{ width: `${result.score}%` }}
-                />
+            <div className={`result-card ${result.risk_level.toLowerCase()}`}>
+              <div className="result-main">
+                <div>
+                  <h3>Overall Risk: {result.risk_level}</h3>
+                  <p className="score">Aggregated Risk Score: {result.final_score}/100</p>
+                  {showComparison && <p className="confidence pulse">Confidence (ML+NN): {result.confidence}%</p>}
+                </div>
+                <div className="result-actions">
+                  <button className="compare-btn" onClick={() => setShowComparison(!showComparison)}>
+                    {showComparison ? "Hide Comparison" : "📊 View Model Comparison"}
+                  </button>
+                  <button className="report-btn" onClick={handleDownloadReport}>
+                    📥 Download PDF Report
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* WHY FLAGGED */}
-            <div className="flagged-section">
-              <h3>🚨 Why was this link flagged?</h3>
-
-              <div className="flagged-grid">
-                {result.reasons.length === 0 ? (
-                  <div className="flag-card safe">
-                    <span>✅</span>
-                    <p>No suspicious patterns detected</p>
+              {/* MODEL COMPARISON VIEW */}
+              {showComparison && (
+                <div className="comparison-overlay">
+                  <h4>Hybrid Model Comparison</h4>
+                  <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height={250}>
+                      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                        <XAxis dataKey="name" fontSize={12} stroke="#fff" />
+                        <YAxis stroke="#fff" fontSize={12} domain={[0, 100]} />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }}
+                        />
+                        <Bar dataKey="score" radius={[5, 5, 0, 0]}>
+                          {chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={index === 2 ? "#6366f1" : "#3b82f6"} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
-                ) : (
-                  result.reasons.map((r, i) => (
-                    <div key={i} className="flag-card danger">
-                      <span>⚠️</span>
-                      <p>{r}</p>
-                    </div>
-                  ))
-                )}
-              </div>
+                  <div className="best-performer">
+                    <span>🏆 Best Performer: </span>
+                    <strong>{result.model_comparison['Best Performer']}</strong>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* SECURITY ADVICE */}
-            <div className="security-section">
-              <h3>🛡️ Security Recommendations</h3>
-
-              <div className="security-grid">
-                <div className="security-card danger">
-                  <span>❌</span>
-                  <h4>Avoid entering passwords</h4>
-                  <p>Do not enter OTPs, passwords, or card details.</p>
+            <div className="details-grid">
+              {/* SHAP EXPLANATION */}
+              <div className="card explain-card">
+                <h3>🧠 Why was this flagged? (AI Explainability)</h3>
+                <div className="explain-list">
+                  {result.details.ml_explanation.map((ex, i) => (
+                    <div key={i} className="explain-item">
+                      <div className="bar-container">
+                        <div 
+                          className="bar-fill" 
+                          style={{ 
+                            width: `${Math.min(Math.abs(ex.importance) * 500, 100)}%`,
+                            backgroundColor: ex.importance > 0 ? "#ef4444" : "#22c55e"
+                          }}
+                        />
+                      </div>
+                      <p><strong>{ex.description}</strong></p>
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                <div className="security-card danger">
-                  <span>❌</span>
-                  <h4>Avoid login & payments</h4>
-                  <p>Do not submit login or payment forms.</p>
-                </div>
-
-                <div className="security-card safe">
-                  <span>✅</span>
-                  <h4>Verify official source</h4>
-                  <p>Open the website via the official company page.</p>
-                </div>
-
-                <div className="security-card safe">
-                  <span>🔐</span>
-                  <h4>Enable two-factor authentication</h4>
-                  <p>Add an extra layer of protection to accounts.</p>
-                </div>
-
-                <div className="security-card safe">
-                  <span>🛡️</span>
-                  <h4>Use browser protection</h4>
-                  <p>Turn on phishing protection in your browser.</p>
+              {/* INTEL CARDS */}
+              <div className="card intel-card">
+                <h3>🌐 Domain Intelligence</h3>
+                <div className="intel-grid">
+                  <div className="intel-item">
+                    <span>📅</span>
+                    <div>
+                      <p>Domain Age</p>
+                      <strong>{result.details.whois.age_days} Days</strong>
+                    </div>
+                  </div>
+                  <div className="intel-item">
+                    <span>🔒</span>
+                    <div>
+                      <p>SSL Status</p>
+                      <strong>{result.details.ssl.valid ? "Valid (HTTPS)" : "Insecure (No SSL)"}</strong>
+                    </div>
+                  </div>
+                  <div className="intel-item">
+                    <span>🏢</span>
+                    <div>
+                      <p>Registrar</p>
+                      <strong>{result.details.whois.registrar || "Unknown"}</strong>
+                    </div>
+                  </div>
+                  <div className="intel-item">
+                    <span>📡</span>
+                    <div>
+                      <p>Google Safe Browsing</p>
+                      <strong style={{ color: result.details.threat_intel.google_safe_browsing === 'Safe' ? '#22c55e' : '#ef4444' }}>
+                        {result.details.threat_intel.google_safe_browsing}
+                      </strong>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

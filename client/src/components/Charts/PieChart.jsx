@@ -48,21 +48,23 @@ const getAttackCategory = (item) => {
 
 export default function AttackPie({ data, onSelectType }) {
   /* =========================
-     COUNT ALL ATTACKS
+     SMART DATA HANDLING
   ========================= */
-  const attackCounts = data.reduce((acc, item) => {
-    const category = getAttackCategory(item);
-    acc[category] = (acc[category] || 0) + 1;
-    return acc;
-  }, {});
+  const isPreAggregated = Array.isArray(data) && data.length > 0 && data[0].value !== undefined;
 
-  const chartData = Object.entries(attackCounts).map(
-    ([name, value]) => ({
-      name,
-      value,
-      color: COLORS[name] || COLORS.Other,
-    })
-  );
+  const chartData = isPreAggregated
+    ? data.map(item => ({ ...item, color: COLORS[item.name] || COLORS.Other }))
+    : Object.entries(
+        data.reduce((acc, item) => {
+          const category = getAttackCategory(item);
+          acc[category] = (acc[category] || 0) + 1;
+          return acc;
+        }, {})
+      ).map(([name, value]) => ({
+        name,
+        value,
+        color: COLORS[name] || COLORS.Other,
+      }));
 
   return (
     <>
