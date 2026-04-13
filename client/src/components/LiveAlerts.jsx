@@ -6,8 +6,9 @@ const LiveAlerts = () => {
     const [alerts, setAlerts] = useState([]);
 
     useEffect(() => {
-        // Connect to the Python Flask backend on 5001
-        const socket = io("http://localhost:5001");
+        const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5001";
+        const socket = io(API_URL);
+
 
         socket.on("connect", () => {
             console.log("📡 Connected to PhishViz Real-Time Engine");

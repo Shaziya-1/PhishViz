@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5001";
+
 const API = axios.create({
-  baseURL: "http://127.0.0.1:5001/api",
+  baseURL: `${API_URL}/api`,
 });
+
 
 export const getDashboardStats = () => API.get("/dashboard");
 export const getAttackTypes = () => API.get("/analysis");

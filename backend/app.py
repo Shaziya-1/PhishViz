@@ -51,6 +51,8 @@ def handle_ping(data):
     emit('new_alert', data, broadcast=True)
 
 if __name__ == "__main__":
-    # Running on port 5001 to avoid conflict with existing Node.js on 5000
-    # or we can stop Node.js later
-    socketio.run(app, debug=True, port=5001)
+    # Get port from environment variable for cloud deployment
+    port = int(os.environ.get("PORT", 5001))
+    # Using 0.0.0.0 to listen on all interfaces
+    socketio.run(app, debug=True, host='0.0.0.0', port=port)
+

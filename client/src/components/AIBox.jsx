@@ -19,9 +19,11 @@ const AIBox = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:5001/api/chatbot", {
+            const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5001";
+            const response = await axios.post(`${API_URL}/api/chatbot`, {
                 message: msg
             });
+
             
             setMessages([...newMessages, { role: "bot", text: response.data.reply }]);
         } catch (error) {
