@@ -1,6 +1,10 @@
 from flask import Blueprint, request, jsonify
 import numpy as np
-import cv2
+try:
+    import cv2
+    CV2_AVAILABLE = True
+except Exception:
+    CV2_AVAILABLE = False
 import base64
 
 try:
@@ -16,11 +20,11 @@ def analyze_qr():
     """
     Receives base64 image, extracts URL, and analyzes it
     """
-    if not ZBAR_AVAILABLE:
+    if not ZBAR_AVAILABLE or not CV2_AVAILABLE:
         return jsonify({
             "status": "partial",
             "url": "https://google.com", 
-            "message": "QR analysis (ZBar) is not available in this environment. Returning mock URL for demo."
+            "message": "QR analysis (ZBar/OpenCV) is not available in this environment. Returning mock URL for demo."
         })
 
     data = request.json

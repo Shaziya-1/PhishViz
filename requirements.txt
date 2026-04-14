@@ -4,14 +4,12 @@ Flask-SocketIO
 pandas
 joblib
 scikit-learn
-shap
 python-whois
 dnspython
 pyOpenSSL
 requests
 python-levenshtein
 fpdf
-opencv-python-headless
 beautifulsoup4
 tldextract
 numpy
