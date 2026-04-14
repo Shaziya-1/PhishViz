@@ -28,6 +28,12 @@
   margin: 24px 0;
 }
 
+@media (max-width: 900px) {
+  .analysis-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
 .analysis-card {
   background: linear-gradient(180deg, #121b2f, #0d1425);
   padding: 20px;
@@ -108,6 +114,24 @@
   align-items: center;
   gap: 16px;
   margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+  .vector-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    gap: 8px;
+    background: #0f172a;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  .vector-left {
+    justify-content: center;
+  }
+  .vector-right {
+    text-align: center;
+  }
 }
 
 /* LEFT */

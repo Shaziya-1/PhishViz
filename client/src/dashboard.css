@@ -63,15 +63,16 @@ body {
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
+  padding: 5px;
 }
 
 .hamburger span {
-  width: 25px;
-  height: 3px;
+  width: 30px;
+  height: 4px;
   background-color: var(--accent);
-  border-radius: 3px;
+  border-radius: 4px;
   transition: all 0.3s ease-in-out;
 }
 
@@ -667,4 +668,60 @@ body {
   font-size: 12px;
   color: #9aa4bf;
   margin: 2px 0 0;
+}
+
+/* =========================================================
+   FINAL MOBILE ENFORCEMENT MACROS
+========================================================= */
+
+@media (max-width: 900px) {
+  .dashboard { padding: 15px !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+  .security-grid { grid-template-columns: 1fr !important; }
+  
+  .nav-center {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* Below thicker navbar */
+    left: 0;
+    width: 100%;
+    background: #020617;
+    padding: 10px 0;
+    border-bottom: 2px solid #1f2a44;
+    z-index: 9999;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.8);
+  }
+  .nav-center.open { display: flex !important; }
+  
+  .hamburger {
+    display: flex !important;
+    margin-right: -10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+  
+  .stat-card {
+    padding: 16px !important;
+  }
+  
+  .alert-banner {
+    margin: 10px 0px 20px 0px !important; /* Remove side pushing margins completely */
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Force within screen bounds */
+  }
+
+  .navbar {
+    padding: 15px 20px !important;
+  }
+  
+  .blocked-left strong {
+    max-width: 200px !important;
+  }
 }

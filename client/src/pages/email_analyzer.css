@@ -5,6 +5,15 @@
     color: #f1f5f9;
 }
 
+@media (max-width: 768px) {
+    .email-page {
+        padding: 20px;
+    }
+    .analyzer-container {
+        padding: 15px; /* Less padding inside container on mobile */
+    }
+}
+
 .page-header {
     text-align: center;
     margin-bottom: 40px;
@@ -27,6 +36,7 @@
 
 .analyzer-container textarea {
     width: 100%;
+    box-sizing: border-box; /* Crucial for mobile padding to not push width */
     background: #020617;
     border: 1px solid #334155;
     color: #e2e8f0;
