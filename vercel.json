@@ -1,7 +1,11 @@
 {
   "version": 2,
-  "name": "phishviz-frontend",
+  "name": "phishviz",
   "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
     {
       "src": "client/package.json",
       "use": "@vercel/static-build",
@@ -12,8 +16,16 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "/client/assets/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/client/index.html"
     }
   ]
 }

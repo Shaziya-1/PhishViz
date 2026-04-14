@@ -19,7 +19,7 @@ const AIBox = () => {
         setLoading(true);
 
         try {
-            const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5001";
+            const API_URL = import.meta.env.VITE_API_URL || (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? "http://127.0.0.1:5001" : "");
             const response = await axios.post(`${API_URL}/api/chatbot`, {
                 message: msg
             });

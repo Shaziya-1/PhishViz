@@ -6,7 +6,15 @@ const LiveAlerts = () => {
     const [alerts, setAlerts] = useState([]);
 
     useEffect(() => {
-        const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5001";
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        const API_URL = import.meta.env.VITE_API_URL || (isLocal ? "http://127.0.0.1:5001" : "");
+        
+        // Vercel Serverless doesn't support WebSockets
+        if (!isLocal && !import.meta.env.VITE_API_URL) {
+            console.log("Real-time alerts (SocketIO) are disabled in production.");
+            return;
+        }
+
         const socket = io(API_URL);
 
 
