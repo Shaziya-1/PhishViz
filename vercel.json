@@ -25,6 +25,10 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/data/(.*)",
+      "destination": "/client/data/$1"
+    },
+    {
       "source": "/assets/(.*)",
       "destination": "/client/assets/$1"
     },

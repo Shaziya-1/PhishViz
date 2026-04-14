@@ -7,9 +7,9 @@ const API = axios.create({
 });
 
 
-export const getDashboardStats = () => API.get("/dashboard");
-export const getAttackTypes = () => API.get("/analysis");
-export const getGeoData = () => API.get("/geo");
+export const getDashboardStats = () => API.get("/stats");
+export const getAttackTypes = () => API.get("/stats?full=false");
+export const getGeoData = () => API.get("/stats?full=false");
 
 // Advanced PhishViz Endpoints
 export const checkURL = (url) => API.post("/analyze-url", { url });
