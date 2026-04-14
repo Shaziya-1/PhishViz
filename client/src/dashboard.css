@@ -60,9 +60,49 @@ body {
   gap: 26px;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--accent);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
 @media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+    margin-right: -40px; /* offset theme button */
+  }
+
   .nav-center {
-    display: none; /* Hide on small screens for now, or stack them below */
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: var(--bg-card);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    z-index: 1001; /* Stay above map */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-center.open {
+    display: flex;
+  }
+
+  .nav-center a {
+    padding: 12px 32px;
+    margin: 0;
+    font-size: 16px;
   }
 }
 
