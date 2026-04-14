@@ -7,7 +7,7 @@ const usePhishData = (includeRaw = false) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getDashboardStats()
+    getDashboardStats(includeRaw)
       .then((response) => {
         setData(response.data);
         setLoading(false);

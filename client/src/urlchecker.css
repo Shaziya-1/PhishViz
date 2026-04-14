@@ -3,6 +3,12 @@
   color: #fff;
 }
 
+@media (max-width: 768px) {
+  .url-page {
+    padding: 20px;
+  }
+}
+
 /* HEADER */
 .url-header {
   text-align: center;
@@ -26,6 +32,12 @@
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+  .url-input-card {
+    flex-direction: column;
+  }
 }
 
 .url-input-card input {
@@ -210,6 +222,12 @@
   grid-template-columns: 1fr 1fr;
   gap: 15px;
   margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  .intel-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .intel-item {

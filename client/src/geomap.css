@@ -3,6 +3,12 @@
   color: #fff;
 }
 
+@media (max-width: 768px) {
+  .geo-page {
+    padding: 20px;
+  }
+}
+
 .geo-title {
   font-size: 28px;
   font-weight: 700;
@@ -27,6 +33,12 @@
   grid-template-columns: 1.4fr 1fr;
   gap: 30px;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .geo-hero {
+    grid-template-columns: 1fr;
+  }
 }
 
 .geo-badge {
@@ -56,6 +68,18 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .geo-risk-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .geo-risk-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .geo-risk {
@@ -96,10 +120,15 @@
 }
 
 /* TABLE (unchanged look) */
+.geo-table-card {
+  overflow-x: auto; /* Enable scroll for mobile */
+}
+
 .geo-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 16px;
+  min-width: 500px; /* Ensure table doesn't collapse too much */
 }
 
 .geo-table th,

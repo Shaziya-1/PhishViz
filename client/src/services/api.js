@@ -7,7 +7,7 @@ const API = axios.create({
 });
 
 
-export const getDashboardStats = () => API.get("/stats");
+export const getDashboardStats = (full = false) => API.get(`/stats?full=${full}`);
 export const getAttackTypes = () => API.get("/stats?full=false");
 export const getGeoData = () => API.get("/stats?full=false");
 
