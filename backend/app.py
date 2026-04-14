@@ -19,7 +19,14 @@ from backend.routes.stats import stats_bp
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cyberphish_secret!'
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Safe SocketIO for Serverless (Vercel)
+# Standard SocketIO won't work in serverless, but we initialize it safely 
+# to avoid breaking imports and local development.
+try:
+    socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading' if os.environ.get('VERCEL') else None)
+except Exception:
+    socketio = None
 
 # Register Blueprints
 app.register_blueprint(phish_analyzer_bp, url_prefix='/api')
